@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 2048-game-app-env1
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 2048-game-env1
+    name: in-cluster
+  project: appbundle-project-env1
+  source:
+    path: kustomized_helm/overlays/env1
+    repoURL: https://github.com/CBOTY/argocd/tree/main/apps
+    targetRevision: HEAD
+    plugin:
+      name: kustomized-helm

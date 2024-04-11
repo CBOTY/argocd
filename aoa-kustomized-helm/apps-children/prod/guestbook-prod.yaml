@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-guestbook
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  destination:
+    namespace: helm-guestbook
+    name: in-cluster
+  project: aoa-project-prod
+  source:
+    path: app-of-apps/helm-guestbook
+    repoURL: https://github.com/CBOTY/argocd/
+    targetRevision: HEAD
+    plugin:
+      name: kustomized-helm
+  syncPolicy:
+    automated:
+      selfHeal: true
