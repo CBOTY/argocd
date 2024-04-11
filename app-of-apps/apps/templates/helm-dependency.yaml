@@ -5,6 +5,8 @@ metadata:
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
+  anotations:
+    argocd.argoproj.io/sybc-wave: "5"
 spec:
   destination:
     namespace: helm-dependency
